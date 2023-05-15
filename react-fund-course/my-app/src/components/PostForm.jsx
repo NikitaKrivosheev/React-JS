@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MyButton from "../UI/buttron/MyButton";
+import MyButton from "../UI/button/MyButton";
 import MyInput from "../UI/input/MyInput";
 
 const PostForm = ({ create }) => {
