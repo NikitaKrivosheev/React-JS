@@ -1,12 +1,16 @@
 import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { privateRoutes, publicRoutes } from "../router";
-import Error from "../pages/Error";
 import { AuthContext } from "../context";
+import Loader from "../UI/Loader/Loader";
 
 const AppRouter = () => {
-  const { isAuth, setIsAuth } = useContext(AuthContext);
-  console.log(isAuth);
+  const { isAuth, isLoading } = useContext(AuthContext);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return isAuth ? (
     <Routes>
       {privateRoutes.map((route) => (
@@ -14,6 +18,7 @@ const AppRouter = () => {
           component={route.component}
           path={route.path}
           exact={route.exact}
+          key={route.path}
         />
       ))}
     </Routes>
@@ -24,9 +29,10 @@ const AppRouter = () => {
           component={route.component}
           path={route.path}
           exact={route.exact}
+          key={route.path}
         />
       ))}
-      <Route path="*" element={<Navigate to="/login" />} />
+      <Route path="*" element={<Navigate to="/login" />}></Route>
     </Routes>
   );
 };
